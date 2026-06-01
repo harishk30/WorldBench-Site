@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="WorldBench is a visually diverse multimodal reasoning benchmark with 2,000 human-curated questions across seven visual domains."
+    >
+    <title>WorldBench</title>
+    <link rel="stylesheet" href="styles.css?v=20260531aa">
+  </head>
+  <body>
+    <main>
+      <section class="hero" aria-labelledby="title">
+        <div class="hero-text">
+          <h1 id="title">WorldBench</h1>
+          <p class="tagline">A Challenging and Visually Diverse Multimodal Reasoning Benchmark</p>
+          <p class="abstract">
+            Real-world multimodal systems must reason reliably across diverse visual settings.
+            Yet many benchmarks expand task types without capturing the breadth of open-ended
+            visual inputs models encounter in practice.
+          </p>
+          <p class="abstract">
+            WorldBench addresses this gap with 2,000 human-curated questions drawn from a broad
+            taxonomy of visual concepts. Both embedding-based measurements and human pairwise
+            evaluations show that WorldBench is more visually diverse than existing diverse
+            benchmarks, while remaining difficult for frontier models: the strongest evaluated
+            model reaches only <strong>64.0%</strong> average accuracy.
+          </p>
+          <div class="links" aria-label="Project links">
+            <a class="button primary" href="#">Paper</a>
+            <a class="button" href="#"><img src="assets/github.png" alt=""> Code</a>
+            <a class="button" href="#"><img src="assets/huggingface.png" alt=""> Dataset</a>
+          </div>
+          <p class="authors">
+            Yida Yin<sup>*</sup>, Harish Krishnakumar<sup>*</sup>, Chung Peng Lee, Boya Zeng, Wenhao Chai,
+            Shengbang Tong, Wenhu Chen, Hu Xu, Xingyu Fu, Gabriel Sarch,
+            Aleksandra Korolova, Zhuang Liu<sup>†</sup>
+          </p>
+          <p class="author-note">* Equal contribution. † Corresponding author.</p>
+          <p class="affiliations">Princeton University · NYU · University of Waterloo · Meta FAIR</p>
+        </div>
+
+        <aside class="score-card" aria-label="WorldBench performance summary">
+          <div class="score-top">
+            <span>Best model average</span>
+            <strong>64.0%</strong>
+          </div>
+          <div class="model-bars" aria-label="Model average accuracies">
+            <div class="model-row"><span>Gemini-3.1-Pro</span><i style="--w:64%"></i><b>64.0</b></div>
+            <div class="model-row"><span>Gemini-3-Flash</span><i style="--w:61.8%"></i><b>61.8</b></div>
+            <div class="model-row"><span>Qwen3.5-VL Plus Thinking</span><i style="--w:59.3%"></i><b>59.3</b></div>
+            <div class="model-row"><span>GPT-5.4 Thinking high</span><i style="--w:58.2%"></i><b>58.2</b></div>
+            <div class="model-row"><span>Qwen3.5-VL-27B</span><i style="--w:56.6%"></i><b>56.6</b></div>
+            <div class="model-row"><span>Claude-Opus-4.7</span><i style="--w:53.7%"></i><b>53.7</b></div>
+          </div>
+          <p>No model gets above 75% accuracy in any domain</p>
+        </aside>
+      </section>
+
+      <section class="section thesis visual-coverage" aria-labelledby="coverage-title">
+        <div class="section-heading">
+          <h2 id="coverage-title">Building a Benchmark Around the Visual World</h2>
+          <p>
+            To evaluate visual reasoning, the images must vary as much as the tasks. WorldBench
+            starts from a taxonomy of 2,000 visual concepts across seven domains, then samples
+            broadly from real-world, digital, document, academic, and agentic visual content.
+          </p>
+        </div>
+        <figure class="paper-figure taxonomy-shell">
+          <img src="assets/taxonomy-transparent.png" alt="WorldBench taxonomy across seven visual domains.">
+        </figure>
+        <p class="process-lede">
+          The benchmark construction follows outward from the taxonomy: define coverage, curate
+          representative images, then write questions that expose model failures.
+        </p>
+        <div class="process">
+          <article>
+            <strong>01</strong>
+            <h3>Build a Taxonomy</h3>
+            <p>Start from seven high-level visual domains, expand into subdomains, then fine-grained concepts.</p>
+          </article>
+          <article>
+            <strong>02</strong>
+            <h3>Curate Images</h3>
+            <p>Select high-quality, non-iconic images that represent each concept without collapsing into object-centric views.</p>
+          </article>
+          <article>
+            <strong>03</strong>
+            <h3>Write Hard Questions</h3>
+            <p>Manually refine natural questions until frontier models fail, then review for single-answer validity.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section leaderboard" aria-labelledby="leaderboard-title">
+        <div class="section-heading narrow">
+          <h2 id="leaderboard-title">WorldBench Remains Far From Saturated</h2>
+          <p>
+            The top proprietary model, Gemini-3.1-Pro, reaches 64.0% average accuracy.
+            The best open-source model, Qwen3.5-VL-27B, reaches 56.6%. No model gets
+            above 75% accuracy in any domain.
+          </p>
+        </div>
+        <div class="table-wrap" tabindex="0" aria-label="WorldBench model performance table">
+          <table>
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th>Living</th>
+                <th>Objects</th>
+                <th>Scenes</th>
+                <th>Digital</th>
+                <th>Acad.</th>
+                <th>DCT</th>
+                <th>Agents</th>
+                <th>Avg</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="top"><th>Gemini-3.1-Pro<sup>*</sup></th><td class="best">62.0</td><td>60.7</td><td class="best">61.4</td><td class="best">71.4</td><td class="best">64.0</td><td class="best">73.8</td><td>62.0</td><td class="best">64.0</td></tr>
+              <tr><th>Gemini-3-Flash</th><td>56.7</td><td>60.7</td><td>57.5</td><td>66.9</td><td>63.2</td><td>72.7</td><td>63.3</td><td>61.8</td></tr>
+              <tr><th>Qwen3.5-VL-Plus-Thinking</th><td>56.3</td><td class="best">62.8</td><td>55.0</td><td>58.9</td><td>60.1</td><td>60.2</td><td>63.3</td><td>59.3</td></tr>
+              <tr><th>GPT-5.4-Thinking (high)</th><td>55.5</td><td>53.8</td><td>54.3</td><td>67.3</td><td>60.1</td><td>64.5</td><td class="best">63.9</td><td>58.2</td></tr>
+              <tr><th>Qwen3.5-VL-27B</th><td>50.6</td><td>57.5</td><td>53.3</td><td>58.5</td><td>61.8</td><td>57.6</td><td>60.2</td><td>56.6</td></tr>
+              <tr><th>Claude-Opus-4.7</th><td>46.1</td><td>52.8</td><td>51.3</td><td>59.3</td><td>57.0</td><td>58.7</td><td>56.0</td><td>53.7</td></tr>
+              <tr><th>Grok-4.2</th><td>49.8</td><td>53.6</td><td>49.2</td><td>59.7</td><td>53.9</td><td>57.0</td><td>54.2</td><td>53.3</td></tr>
+              <tr><th>GPT-5.4-Thinking (low)<sup>*</sup></th><td>51.8</td><td>48.4</td><td>50.3</td><td>58.1</td><td>53.9</td><td>61.6</td><td>58.4</td><td>53.0</td></tr>
+              <tr><th>Qwen3.5-VL-35B-A3B</th><td>48.6</td><td>52.6</td><td>52.2</td><td>50.4</td><td>57.0</td><td>59.3</td><td>54.2</td><td>52.9</td></tr>
+              <tr><th>Kimi-K2.5<sup>*</sup></th><td>49.0</td><td>52.0</td><td>49.7</td><td>56.9</td><td>51.3</td><td>59.3</td><td>54.8</td><td>52.5</td></tr>
+              <tr><th>Gemma-4-31B</th><td>49.4</td><td>47.4</td><td>46.0</td><td>51.2</td><td>54.4</td><td>52.9</td><td>54.8</td><td>49.7</td></tr>
+              <tr><th>Qwen3.5-VL-Plus-Instruct<sup>*</sup></th><td>45.7</td><td>49.4</td><td>45.1</td><td>55.2</td><td>47.8</td><td>49.1</td><td>51.2</td><td>48.7</td></tr>
+              <tr><th>GLM-4.6V</th><td>47.8</td><td>41.1</td><td>43.4</td><td>38.7</td><td>40.4</td><td>42.4</td><td>44.6</td><td>42.5</td></tr>
+              <tr><th>InternVL-3.5</th><td>38.4</td><td>42.5</td><td>44.6</td><td>39.1</td><td>38.6</td><td>42.4</td><td>38.6</td><td>41.2</td></tr>
+              <tr><th>Gemma-4-E4B</th><td>34.3</td><td>33.6</td><td>29.7</td><td>38.7</td><td>36.8</td><td>39.0</td><td>37.3</td><td>34.6</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">Peach cells mark the best score in each domain or average. * Models used during question proposal.</p>
+      </section>
+
+      <section class="section diversity" aria-labelledby="diversity-title">
+        <div class="section-heading narrow">
+          <h2 id="diversity-title">WorldBench Is Visually Diverse by Both Model and Human Measures</h2>
+          <p>
+            Automated embedding metrics and human pairwise judgments point to the same conclusion:
+            WorldBench covers a broader visual space than prior multimodal benchmarks.
+          </p>
+        </div>
+        <div class="chart-grid">
+          <article class="chart-card">
+            <h3>Human Pairwise Ranking</h3>
+            <p>Bradley-Terry score from 360 comparisons. Higher is more visually diverse.</p>
+            <div class="rank-chart">
+              <div class="rank top"><label>WorldBench</label><i style="--w:100%"></i><b>1187</b></div>
+              <div class="rank"><label>MMT-Bench</label><i style="--w:96%"></i><b>1158</b></div>
+              <div class="rank"><label>MMBench</label><i style="--w:95%"></i><b>1149</b></div>
+              <div class="rank"><label>SEED-Bench-2</label><i style="--w:88%"></i><b>1115</b></div>
+              <div class="rank"><label>MME</label><i style="--w:80%"></i><b>1071</b></div>
+              <div class="rank"><label>VQAv2</label><i style="--w:75%"></i><b>1039</b></div>
+              <div class="rank"><label>MMStar</label><i style="--w:53%"></i><b>896</b></div>
+              <div class="rank"><label>MEGA-Bench</label><i style="--w:45%"></i><b>842</b></div>
+              <div class="rank"><label>MMMU</label><i style="--w:18%"></i><b>542</b></div>
+            </div>
+          </article>
+          <article class="chart-card">
+            <h3>Embedding Diversity</h3>
+            <p>WorldBench ranks first or second across three vision encoders.</p>
+            <div class="encoder-grid">
+              <div><b>SigLIP 2</b><strong>#1</strong><span>effective rank</span></div>
+              <div><b>Perception Encoder</b><strong>#1</strong><span>effective rank and participation ratio</span></div>
+              <div><b>DINO v3</b><strong>#2</strong><span>effective rank</span></div>
+            </div>
+            <p class="small-note">
+              The point is not one model-specific score: WorldBench remains broad under different
+              visual representations.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section examples">
+        <div class="section-heading narrow">
+          <h2>The Benchmark Stresses Grounded Visual Understanding</h2>
+          <p>
+            The examples below are natural questions whose failures often come from weak visual
+            grounding rather than from missing language knowledge.
+          </p>
+        </div>
+        <figure class="paper-figure question-shell">
+          <img src="assets/question_samples.png" alt="Representative WorldBench question samples and model answers.">
+          <figcaption>WorldBench questions ask models to count, inspect details, read interfaces, and avoid unsupported inference.</figcaption>
+        </figure>
+      </section>
+
+      <section class="section citation">
+        <div class="section-heading narrow">
+          <h2>Cite WorldBench</h2>
+        </div>
+        <pre><code>@article{yin2026worldbench,
+  title   = {WorldBench: A Challenging and Visually Diverse Multimodal Reasoning Benchmark},
+  author  = {Yin, Yida and Krishnakumar, Harish and Lee, Chung Peng and Zeng, Boya and Chai, Wenhao and Tong, Shengbang and Chen, Wenhu and Xu, Hu and Fu, Xingyu and Sarch, Gabriel and Korolova, Aleksandra and Liu, Zhuang},
+  journal = {arXiv preprint},
+  year    = {2026}
+}</code></pre>
+      </section>
+    </main>
+  </body>
+</html>
