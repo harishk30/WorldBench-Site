@@ -8,7 +8,9 @@
       content="WorldBench is a visually diverse multimodal reasoning benchmark with 2,000 human-curated questions across seven visual domains."
     >
     <title>WorldBench</title>
-    <link rel="stylesheet" href="styles.css?v=20260531aa">
+    <link rel="stylesheet" href="styles.css?v=20260601">
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+    <script defer src="site.js?v=20260601"></script>
   </head>
   <body>
     <main>
@@ -142,56 +144,87 @@
 
       <section class="section diversity" aria-labelledby="diversity-title">
         <div class="section-heading narrow">
-          <h2 id="diversity-title">WorldBench Is Visually Diverse by Both Model and Human Measures</h2>
+          <h2 id="diversity-title">WorldBench Is Visually Diverse by Both Embedding and Human Measures</h2>
           <p>
             Automated embedding metrics and human pairwise judgments point to the same conclusion:
             WorldBench covers a broader visual space than prior multimodal benchmarks.
           </p>
         </div>
-        <div class="chart-grid">
-          <article class="chart-card">
-            <h3>Human Pairwise Ranking</h3>
-            <p>Bradley-Terry score from 360 comparisons. Higher is more visually diverse.</p>
-            <div class="rank-chart">
-              <div class="rank top"><label>WorldBench</label><i style="--w:100%"></i><b>1187</b></div>
-              <div class="rank"><label>MMT-Bench</label><i style="--w:96%"></i><b>1158</b></div>
-              <div class="rank"><label>MMBench</label><i style="--w:95%"></i><b>1149</b></div>
-              <div class="rank"><label>SEED-Bench-2</label><i style="--w:88%"></i><b>1115</b></div>
-              <div class="rank"><label>MME</label><i style="--w:80%"></i><b>1071</b></div>
-              <div class="rank"><label>VQAv2</label><i style="--w:75%"></i><b>1039</b></div>
-              <div class="rank"><label>MMStar</label><i style="--w:53%"></i><b>896</b></div>
-              <div class="rank"><label>MEGA-Bench</label><i style="--w:45%"></i><b>842</b></div>
-              <div class="rank"><label>MMMU</label><i style="--w:18%"></i><b>542</b></div>
+        <div class="plot-grid">
+          <article class="chart-card plot-card">
+            <div class="plot-card-head">
+              <div>
+                <h3>Human Pairwise Ranking</h3>
+                <p>Bradley-Terry score from 360 human comparisons. Higher means more visually diverse.</p>
+              </div>
+              <span class="metric-pill">human eval</span>
             </div>
+            <div id="human-plot" class="plotly-panel" role="img" aria-label="Interactive Bradley-Terry ranking plot"></div>
           </article>
-          <article class="chart-card">
-            <h3>Embedding Diversity</h3>
-            <p>WorldBench ranks first or second across three vision encoders.</p>
-            <div class="encoder-grid">
-              <div><b>SigLIP 2</b><strong>#1</strong><span>effective rank</span></div>
-              <div><b>Perception Encoder</b><strong>#1</strong><span>effective rank and participation ratio</span></div>
-              <div><b>DINO v3</b><strong>#2</strong><span>effective rank</span></div>
+          <article class="chart-card plot-card wide">
+            <div class="plot-card-head">
+              <div>
+                <h3>Embedding Diversity</h3>
+                <p>Switch across encoders and diversity metrics. WorldBench stays at or near the top.</p>
+              </div>
+              <div class="plot-controls" aria-label="Embedding plot controls">
+                <label>
+                  Encoder
+                  <select id="encoder-select">
+                    <option value="siglip">SigLIP 2</option>
+                    <option value="perception">Perception Encoder</option>
+                    <option value="dinov3">DINO v3</option>
+                  </select>
+                </label>
+                <label>
+                  Metric
+                  <select id="metric-select">
+                    <option value="er">Effective Rank</option>
+                    <option value="pr">Participation Ratio</option>
+                  </select>
+                </label>
+              </div>
             </div>
-            <p class="small-note">
-              The point is not one model-specific score: WorldBench remains broad under different
-              visual representations.
-            </p>
+            <div id="embedding-plot" class="plotly-panel embedding-panel" role="img" aria-label="Interactive embedding diversity plot"></div>
           </article>
         </div>
       </section>
 
       <section class="section examples">
         <div class="section-heading narrow">
-          <h2>The Benchmark Stresses Grounded Visual Understanding</h2>
+          <h2>WorldBench Stresses Grounded Visual Reasoning</h2>
           <p>
-            The examples below are natural questions whose failures often come from weak visual
-            grounding rather than from missing language knowledge.
+            Pick a visual domain to inspect the image, answer choices, model selections, and an
+            available reasoning trace or explanation. The colors follow the domain palette used in
+            the paper figure.
           </p>
         </div>
-        <figure class="paper-figure question-shell">
-          <img src="assets/question_samples.png" alt="Representative WorldBench question samples and model answers.">
-          <figcaption>WorldBench questions ask models to count, inspect details, read interfaces, and avoid unsupported inference.</figcaption>
-        </figure>
+        <div class="question-explorer" id="question-explorer">
+          <nav class="domain-tabs" id="domain-tabs" aria-label="Question domain selector"></nav>
+          <div class="question-stage">
+            <article class="question-card" id="question-card">
+              <div class="question-media">
+                <img id="question-image" src="assets/question_image_living.png" alt="">
+              </div>
+              <div class="question-copy">
+                <span class="domain-chip" id="domain-chip">Living Things</span>
+                <h3 id="question-title"></h3>
+                <ol class="option-list" id="option-list" type="A"></ol>
+              </div>
+            </article>
+            <aside class="model-inspector">
+              <h3>Model Choices</h3>
+              <div class="model-choice-grid" id="model-choice-grid"></div>
+              <div class="reasoning-panel" id="reasoning-panel">
+                <div class="reasoning-head">
+                  <span id="reasoning-model"></span>
+                  <strong id="reasoning-result"></strong>
+                </div>
+                <pre id="reasoning-text"></pre>
+              </div>
+            </aside>
+          </div>
+        </div>
       </section>
 
       <section class="section citation">
