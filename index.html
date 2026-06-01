@@ -165,27 +165,14 @@
             <div class="plot-card-head">
               <div>
                 <h3>Embedding Diversity</h3>
-                <p>Switch across encoders and diversity metrics. WorldBench stays at or near the top.</p>
-              </div>
-              <div class="plot-controls" aria-label="Embedding plot controls">
-                <label>
-                  Encoder
-                  <select id="encoder-select">
-                    <option value="siglip">SigLIP 2</option>
-                    <option value="perception">Perception Encoder</option>
-                    <option value="dinov3">DINO v3</option>
-                  </select>
-                </label>
-                <label>
-                  Metric
-                  <select id="metric-select">
-                    <option value="er">Effective Rank</option>
-                    <option value="pr">Participation Ratio</option>
-                  </select>
-                </label>
+                <p>Effective rank and participation ratio across three vision encoders, matching the paper layout.</p>
               </div>
             </div>
-            <div id="embedding-plot" class="plotly-panel embedding-panel" role="img" aria-label="Interactive embedding diversity plot"></div>
+            <div class="embedding-stack" role="img" aria-label="Stacked embedding diversity plots">
+              <div id="embedding-siglip" class="plotly-panel embedding-panel"></div>
+              <div id="embedding-perception" class="plotly-panel embedding-panel"></div>
+              <div id="embedding-dinov3" class="plotly-panel embedding-panel"></div>
+            </div>
           </article>
         </div>
       </section>
@@ -204,7 +191,7 @@
           <div class="question-stage">
             <article class="question-card" id="question-card">
               <div class="question-media">
-                <img id="question-image" src="assets/question_image_living.png" alt="">
+                <img id="question-image" src="assets/question_original_living.jpg" alt="">
               </div>
               <div class="question-copy">
                 <span class="domain-chip" id="domain-chip">Living Things</span>
@@ -213,7 +200,7 @@
               </div>
             </article>
             <aside class="model-inspector">
-              <h3>Model Choices</h3>
+              <h3>Actual Reasoning Trace</h3>
               <div class="model-choice-grid" id="model-choice-grid"></div>
               <div class="reasoning-panel" id="reasoning-panel">
                 <div class="reasoning-head">
