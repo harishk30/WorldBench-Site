@@ -1149,7 +1149,7 @@ tbody tr.top td.best {
   padding: 16px 18px 18px;
   overflow: auto;
   border: 0;
-  border-left: 3px solid var(--domain-color);
+  border-left: 3px solid #7c5cff;
   border-radius: 0;
   background: rgba(255, 255, 255, 0.62);
   color: var(--ink);
