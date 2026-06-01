@@ -9,15 +9,15 @@ const theme = {
 };
 
 const humanScores = [
-  ["WorldBench", 1187],
-  ["MMT-Bench", 1158],
-  ["MMBench", 1149],
-  ["SEED-Bench-2", 1115],
-  ["MME", 1071],
-  ["VQAv2", 1039],
-  ["MMStar", 896],
-  ["MEGA-Bench", 842],
-  ["MMMU", 542],
+  { name: "WorldBench", score: 1187.4, low: 1120, high: 1265 },
+  { name: "MMT-Bench", score: 1157.8, low: 1092, high: 1234 },
+  { name: "MMBench", score: 1149.3, low: 1070, high: 1210 },
+  { name: "SEED-Bench", score: 1115.4, low: 1034, high: 1204 },
+  { name: "MME", score: 1071.1, low: 1000, high: 1138 },
+  { name: "VQAv2", score: 1039.4, low: 958, high: 1128 },
+  { name: "MMStar", score: 895.6, low: 842, high: 963 },
+  { name: "MEGA-Bench", score: 841.9, low: 748, high: 925 },
+  { name: "MMMU", score: 542.1, low: 383, high: 669 },
 ];
 
 const embeddingRows = {
@@ -48,10 +48,10 @@ const embeddingRows = {
 };
 
 const modelMeta = {
-  "GPT-5.4": { logo: "assets/logos/gpt.png", label: "GPT-5.4" },
-  "Gemini-3.1-Pro": { logo: "assets/logos/gemini.png", label: "Gemini-3.1-Pro" },
-  "Qwen3.5-VL": { logo: "assets/logos/qwen.png", label: "Qwen3.5-VL" },
-  "Kimi-K2.5": { logo: "assets/logos/kimi.svg", label: "Kimi-K2.5" },
+  "GPT-5.4": { logo: "assets/logos/gpt.png", label: "GPT-5.4-Thinking (low)", key: "gpt" },
+  "Gemini-3.1-Pro": { logo: "assets/logos/gemini.png", label: "Gemini-3.1-Pro", key: "gemini" },
+  "Qwen3.5-VL": { logo: "assets/logos/qwen.png", label: "Qwen3.5-VL-Plus-Instruct", key: "qwen" },
+  "Kimi-K2.5": { logo: "assets/logos/kimi.svg", label: "Kimi-K2.5", key: "kimi" },
 };
 
 const questions = [
@@ -64,7 +64,7 @@ const questions = [
     options: { A: "0", B: "1", C: "2", D: "3" },
     answer: "B",
     choices: { "GPT-5.4": "C", "Gemini-3.1-Pro": "B", "Qwen3.5-VL": "C", "Kimi-K2.5": "C" },
-    reasoningModel: "Qwen3.5-VL-35B-A3B actual trace",
+    reasoningModel: "Qwen3.5-VL-35B-A3B",
     predicted: "C",
     trace: `The user wants me to count the mosquitoes in the image.
 
@@ -88,7 +88,7 @@ Answer: C`,
     options: { A: "Octopus", B: "More shrimps", C: "Ice", D: "Not possible to tell" },
     answer: "D",
     choices: { "GPT-5.4": "C", "Gemini-3.1-Pro": "C", "Qwen3.5-VL": "C", "Kimi-K2.5": "C" },
-    reasoningModel: "Qwen3.5-VL-35B-A3B actual trace",
+    reasoningModel: "Qwen3.5-VL-35B-A3B",
     predicted: "C",
     trace: `The user wants to identify what is underneath the shrimp in the metal bucket.
 
@@ -115,7 +115,7 @@ Answer: C`,
     options: { A: "An open takeout box", B: "A notepad", C: "Scattered paper", D: "A computer" },
     answer: "A",
     choices: { "GPT-5.4": "B", "Gemini-3.1-Pro": "A", "Qwen3.5-VL": "B", "Kimi-K2.5": "B" },
-    reasoningModel: "Qwen3.5-VL-35B-A3B actual trace",
+    reasoningModel: "Qwen3.5-VL-35B-A3B",
     predicted: "B",
     trace: `The user wants me to identify an item on the table closest to the viewer.
 
@@ -144,7 +144,7 @@ Answer: B`,
     options: { A: "A search bar", B: "A heart", C: "A dropdown arrow", D: "A setting icon" },
     answer: "C",
     choices: { "GPT-5.4": "C", "Gemini-3.1-Pro": "C", "Qwen3.5-VL": "C", "Kimi-K2.5": "B" },
-    reasoningModel: "Qwen3.5-VL-35B-A3B actual trace",
+    reasoningModel: "Qwen3.5-VL-35B-A3B",
     predicted: "C",
     trace: `The user wants me to identify a specific symbol in the email header.
 1.  **Locate the recipient's name:** I need to look at the "To:" field in the email header.
@@ -172,7 +172,7 @@ Answer: C`,
     options: { A: "South America", B: "Europe", C: "Australia", D: "Africa" },
     answer: "C",
     choices: { "GPT-5.4": "C", "Gemini-3.1-Pro": "C", "Qwen3.5-VL": "D", "Kimi-K2.5": "C" },
-    reasoningModel: "Qwen3.5-VL-35B-A3B actual trace",
+    reasoningModel: "Qwen3.5-VL-35B-A3B",
     predicted: "D",
     trace: `The user wants me to identify the continent outline visible within the "woodland" circle on the provided infographic.
 
@@ -201,7 +201,7 @@ Answer: D`,
     options: { A: "Missouri, 1873", B: "Missouri, 1872", C: "Mississippi, 1873", D: "Mississippi, 1872" },
     answer: "B",
     choices: { "GPT-5.4": "A", "Gemini-3.1-Pro": "B", "Qwen3.5-VL": "B", "Kimi-K2.5": "B" },
-    reasoningModel: "Qwen3.5-VL-35B-A3B actual trace",
+    reasoningModel: "Qwen3.5-VL-35B-A3B",
     predicted: "B",
     trace: `The user wants me to identify the state and year from the provided document.
 
@@ -241,31 +241,68 @@ function baseLayout(height = 390) {
     margin: { l: 110, r: 22, t: 18, b: 42 },
     paper_bgcolor: "rgba(0,0,0,0)",
     plot_bgcolor: "#ffffff",
-    font: { family: "ui-sans-serif, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif", color: theme.ink },
-    xaxis: { gridcolor: "rgba(20,49,9,0.10)", zeroline: false, tickfont: { color: theme.muted } },
-    yaxis: { gridcolor: "rgba(20,49,9,0.06)", tickfont: { color: theme.ink }, automargin: true },
+    font: { family: getComputedStyle(document.body).fontFamily, color: theme.ink },
+    xaxis: {
+      gridcolor: "rgba(20,49,9,0.10)",
+      zeroline: false,
+      tickfont: { color: theme.ink },
+      linecolor: "#222",
+      mirror: true,
+      ticks: "outside",
+    },
+    yaxis: {
+      gridcolor: "rgba(20,49,9,0.06)",
+      tickfont: { color: theme.ink },
+      automargin: true,
+      linecolor: "#222",
+      mirror: true,
+      ticks: "outside",
+    },
   };
 }
 
 function renderHumanPlot() {
   const ordered = [...humanScores].reverse();
-  Plotly.newPlot("human-plot", [{
-    type: "bar",
-    orientation: "h",
-    y: ordered.map((d) => d[0]),
-    x: ordered.map((d) => d[1]),
-    text: ordered.map((d) => d[1]),
-    textposition: "outside",
-    cliponaxis: false,
-    marker: {
-      color: ordered.map((d) => d[0] === "WorldBench" ? theme.ink : "rgba(170,167,127,0.72)"),
-      line: { color: ordered.map((d) => d[0] === "WorldBench" ? theme.ink : "rgba(20,49,9,0.18)"), width: 1 },
+  const layout = baseLayout(468);
+  Plotly.newPlot("human-plot", [
+    {
+      type: "bar",
+      orientation: "h",
+      name: "Bradley-Terry score",
+      x: ordered.map((d) => d.score),
+      y: ordered.map((d) => d.name),
+      text: ordered.map((d) => d.score.toFixed(1)),
+      textposition: "outside",
+      marker: {
+        color: ordered.map((d) => d.name === "WorldBench" ? "rgba(251, 115, 125, 0.92)" : "rgba(241, 191, 152, 0.78)"),
+        line: { color: "rgba(20,49,9,0.25)", width: 0.9 },
+      },
+      hovertemplate: "<b>%{y}</b><br>Score: %{x:.1f}<extra></extra>",
+      cliponaxis: false,
+      showlegend: false,
     },
-    hovertemplate: "<b>%{y}</b><br>BT score: %{x}<extra></extra>",
-  }], {
-    ...baseLayout(410),
-    margin: { l: 118, r: 42, t: 8, b: 36 },
-    xaxis: { ...baseLayout().xaxis, title: "Bradley-Terry score", range: [480, 1235] },
+  ], {
+    ...layout,
+    height: 468,
+    margin: { l: 104, r: 56, t: 18, b: 48 },
+    paper_bgcolor: "rgba(0,0,0,0)",
+    plot_bgcolor: "#ffffff",
+    xaxis: {
+      ...layout.xaxis,
+      title: "Bradley-Terry Score",
+      titlefont: { size: 11 },
+      range: [500, 1300],
+      dtick: 200,
+      gridcolor: "rgba(20,49,9,0.12)",
+      zeroline: false,
+    },
+    yaxis: {
+      ...layout.yaxis,
+      title: "",
+      showgrid: false,
+      ticks: "",
+      tickfont: { size: 10, color: theme.ink },
+    },
   }, plotConfig);
 }
 
@@ -274,6 +311,8 @@ function renderEmbeddingStack() {
     const names = payload.rows.map((d) => d[0]);
     const er = payload.rows.map((d) => d[1]);
     const pr = payload.rows.map((d) => d[2]);
+    const yMax = Math.max(...er, ...pr) * 1.28;
+    const layout = baseLayout(178);
     Plotly.newPlot(`embedding-${key}`, [
       {
         type: "bar",
@@ -282,7 +321,8 @@ function renderEmbeddingStack() {
         y: er,
         text: er.map((d) => d.toFixed(1)),
         textposition: "outside",
-        marker: { color: "rgba(254, 209, 133, 0.95)", line: { color: "rgba(20,49,9,0.18)", width: 1 } },
+        textfont: { size: 8, color: theme.ink },
+        marker: { color: "rgba(254, 209, 133, 0.95)", line: { color: "rgba(20,49,9,0.18)", width: 0.8 } },
         hovertemplate: "<b>%{x}</b><br>Effective Rank: %{y}<extra></extra>",
       },
       {
@@ -292,30 +332,48 @@ function renderEmbeddingStack() {
         y: pr,
         text: pr.map((d) => d.toFixed(1)),
         textposition: "outside",
-        marker: { color: "rgba(90, 148, 234, 0.9)", line: { color: "rgba(20,49,9,0.18)", width: 1 } },
+        textfont: { size: 7, color: theme.ink },
+        marker: { color: "rgba(90, 148, 234, 0.9)", line: { color: "rgba(20,49,9,0.18)", width: 0.8 } },
         hovertemplate: "<b>%{x}</b><br>Participation Ratio: %{y}<extra></extra>",
       },
     ], {
-      height: key === "dinov3" ? 245 : 225,
-      margin: { l: 54, r: 88, t: 28, b: 46 },
+      height: 178,
+      margin: { l: 42, r: 52, t: 22, b: 42 },
       barmode: "group",
       bargap: 0.22,
+      bargroupgap: 0.08,
       paper_bgcolor: "rgba(0,0,0,0)",
       plot_bgcolor: "#ffffff",
-      title: { text: payload.title, font: { size: 15, color: theme.ink }, y: 0.98 },
-      font: { family: "ui-sans-serif, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif", color: theme.ink, size: 11 },
-      xaxis: { tickangle: 0, tickfont: { size: 10 }, linecolor: "#222", mirror: true, showgrid: false },
-      yaxis: { title: "Effective Rank", gridcolor: "rgba(20,49,9,0.12)", zeroline: false, linecolor: "#222", mirror: true },
-      legend: key === "dinov3" ? { orientation: "h", x: 0, y: 1.18, bgcolor: "rgba(255,255,255,0.78)" } : { orientation: "h", x: 0, y: 1.22, font: { size: 10 } },
+      title: { text: payload.title, font: { size: 13, color: theme.ink }, y: 0.98 },
+      font: { family: getComputedStyle(document.body).fontFamily, color: theme.ink, size: 11 },
+      xaxis: {
+        tickangle: -22,
+        tickfont: { size: 9 },
+        linecolor: "#222",
+        mirror: true,
+        showgrid: false,
+        showticklabels: true,
+      },
+      yaxis: {
+        title: "Effective Rank",
+        titlefont: { size: 10 },
+        range: [0, yMax],
+        gridcolor: "rgba(20,49,9,0.12)",
+        zeroline: false,
+        linecolor: "#222",
+        mirror: true,
+        tickfont: { size: 10 },
+      },
+      showlegend: false,
       annotations: [{
         text: "Participation Ratio",
         textangle: 90,
         xref: "paper",
         yref: "paper",
-        x: 1.045,
+        x: 1.055,
         y: 0.5,
         showarrow: false,
-        font: { size: 11, color: theme.ink },
+        font: { size: 9, color: theme.ink },
       }],
     }, plotConfig);
   });
@@ -327,10 +385,35 @@ function optionRow(letter, text, item) {
   const selectedModels = Object.entries(item.choices).filter(([, answer]) => answer === letter);
   const logos = selectedModels.map(([model]) => {
     const meta = modelMeta[model];
-    return `<img class="model-logo" src="${meta.logo}" alt="${meta.label}" title="${meta.label}">`;
+    return `<span class="model-mark model-${meta.key}" title="${meta.label}" aria-label="${meta.label}"><img class="model-logo" src="${meta.logo}" alt=""></span>`;
   }).join("");
   li.innerHTML = `<span>${letter}</span><p>${text}</p><div class="option-logos">${logos}</div>`;
   return li;
+}
+
+function formatTrace(trace) {
+  return trace
+    .split("\n")
+    .map((line) => line.replace(/\s+$/g, ""))
+    .filter((line) => line !== "</think>");
+}
+
+function escapeHtml(text) {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function formatTraceHtml(trace) {
+  return formatTrace(trace)
+    .map((line) => {
+      let html = escapeHtml(line);
+      html = html.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+      html = html.replace(/^(\s*)(Explanation:|Answer:)/, "$1<strong>$2</strong>");
+      return html;
+    })
+    .join("\n");
 }
 
 function renderQuestion(key = questions[0].key) {
@@ -353,22 +436,18 @@ function renderQuestion(key = questions[0].key) {
   options.innerHTML = "";
   Object.entries(item.options).forEach(([letter, text]) => options.appendChild(optionRow(letter, text, item)));
 
-  const modelGrid = document.getElementById("model-choice-grid");
-  modelGrid.innerHTML = "";
-  Object.entries(item.choices).forEach(([model, answer]) => {
-    const meta = modelMeta[model];
-    const cell = document.createElement("div");
-    cell.className = answer === item.answer ? "choice correct" : "choice wrong";
-    cell.innerHTML = `<img class="model-logo" src="${meta.logo}" alt="${meta.label}"><span>${meta.label}</span><strong>${answer}</strong>`;
-    modelGrid.appendChild(cell);
-  });
-
-  document.getElementById("reasoning-model").textContent = item.reasoningModel;
+  const modelMetaForTrace = modelMeta["Qwen3.5-VL"];
+  document.getElementById("reasoning-model").innerHTML = `
+    <img class="trace-model-logo" src="${modelMetaForTrace.logo}" alt="">
+    <span><b>${item.reasoningModel}</b></span>
+  `;
   const correct = item.predicted === item.answer;
   const result = document.getElementById("reasoning-result");
   result.textContent = correct ? "Correct" : "Incorrect";
   result.className = correct ? "correct" : "wrong";
-  document.getElementById("reasoning-text").textContent = item.trace;
+  const traceElement = document.getElementById("reasoning-text");
+  traceElement.innerHTML = formatTraceHtml(item.trace);
+  traceElement.scrollTop = 0;
 }
 
 function renderTabs() {

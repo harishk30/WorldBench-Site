@@ -8,9 +8,9 @@
       content="WorldBench is a visually diverse multimodal reasoning benchmark with 2,000 human-curated questions across seven visual domains."
     >
     <title>WorldBench</title>
-    <link rel="stylesheet" href="styles.css?v=20260601">
+    <link rel="stylesheet" href="styles.css?v=20260601al">
     <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
-    <script defer src="site.js?v=20260601"></script>
+    <script defer src="site.js?v=20260601al"></script>
   </head>
   <body>
     <main>
@@ -27,7 +27,7 @@
             WorldBench addresses this gap with 2,000 human-curated questions drawn from a broad
             taxonomy of visual concepts. Both embedding-based measurements and human pairwise
             evaluations show that WorldBench is more visually diverse than existing diverse
-            benchmarks, while remaining difficult for frontier models: the strongest evaluated
+            benchmarks, and it is difficult for frontier models: the strongest evaluated
             model reaches only <strong>64.0%</strong> average accuracy.
           </p>
           <div class="links" aria-label="Project links">
@@ -144,46 +144,51 @@
 
       <section class="section diversity" aria-labelledby="diversity-title">
         <div class="section-heading narrow">
-          <h2 id="diversity-title">WorldBench Is Visually Diverse by Both Embedding and Human Measures</h2>
+          <h2 id="diversity-title">WorldBench Is Visually Diverse</h2>
           <p>
-            Automated embedding metrics and human pairwise judgments point to the same conclusion:
-            WorldBench covers a broader visual space than prior multimodal benchmarks.
+            Visual diversity is measured two ways: embedding metrics across three vision encoders
+            and Bradley-Terry rankings from responses from 12 people. WorldBench is at or near the
+            top under both measures among diverse multimodal benchmarks.
           </p>
         </div>
         <div class="plot-grid">
-          <article class="chart-card plot-card">
-            <div class="plot-card-head">
-              <div>
-                <h3>Human Pairwise Ranking</h3>
-                <p>Bradley-Terry score from 360 human comparisons. Higher means more visually diverse.</p>
-              </div>
-              <span class="metric-pill">human eval</span>
-            </div>
-            <div id="human-plot" class="plotly-panel" role="img" aria-label="Interactive Bradley-Terry ranking plot"></div>
-          </article>
           <article class="chart-card plot-card wide">
             <div class="plot-card-head">
               <div>
-                <h3>Embedding Diversity</h3>
-                <p>Effective rank and participation ratio across three vision encoders, matching the paper layout.</p>
+                <h3>Embedding Metrics</h3>
+                <p>Effective rank and participation ratio are higher when images spread across more independent visual directions.</p>
               </div>
             </div>
             <div class="embedding-stack" role="img" aria-label="Stacked embedding diversity plots">
+              <div class="embedding-legend" aria-hidden="true">
+                <span><i class="rank-swatch"></i>Effective Rank</span>
+                <span><i class="ratio-swatch"></i>Participation Ratio</span>
+              </div>
               <div id="embedding-siglip" class="plotly-panel embedding-panel"></div>
               <div id="embedding-perception" class="plotly-panel embedding-panel"></div>
               <div id="embedding-dinov3" class="plotly-panel embedding-panel"></div>
             </div>
+          </article>
+          <article class="chart-card plot-card">
+            <div class="plot-card-head">
+              <div>
+                <h3>Human Pairwise Ranking</h3>
+                <p>Bradley-Terry scores estimated from responses from 12 people.</p>
+              </div>
+            </div>
+            <div id="human-plot" class="plotly-panel" role="img" aria-label="Interactive Bradley-Terry ranking plot"></div>
           </article>
         </div>
       </section>
 
       <section class="section examples">
         <div class="section-heading narrow">
-          <h2>WorldBench Stresses Grounded Visual Reasoning</h2>
+          <h2>WorldBench Questions Stress Grounded Visual Reasoning</h2>
           <p>
-            Pick a visual domain to inspect the image, answer choices, model selections, and an
-            available reasoning trace or explanation. The colors follow the domain palette used in
-            the paper figure.
+            The examples shown span the benchmark's visual domains, from natural scenes to
+            documents, charts, interfaces, and agent environments. Option badges mark responses
+            from GPT-5.4-Thinking (low), Gemini-3.1-Pro, Qwen3.5-VL-Plus-Instruct, and Kimi-K2.5;
+            a reasoning trace from Qwen3.5-VL-35B is included alongside each example.
           </p>
         </div>
         <div class="question-explorer" id="question-explorer">
@@ -200,14 +205,12 @@
               </div>
             </article>
             <aside class="model-inspector">
-              <h3>Actual Reasoning Trace</h3>
-              <div class="model-choice-grid" id="model-choice-grid"></div>
               <div class="reasoning-panel" id="reasoning-panel">
                 <div class="reasoning-head">
                   <span id="reasoning-model"></span>
                   <strong id="reasoning-result"></strong>
                 </div>
-                <pre id="reasoning-text"></pre>
+                <div id="reasoning-text"></div>
               </div>
             </aside>
           </div>
