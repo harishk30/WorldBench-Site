@@ -61,6 +61,7 @@ const questions = [
     color: "#fb737d",
     image: "assets/question_original_living.jpg",
     question: "How many mosquitoes are in the image?",
+    explanation: "Only the large insect in the foreground is a mosquito. The smaller insect behind it is a midge, so it should not be counted as a mosquito.",
     options: { A: "0", B: "1", C: "2", D: "3" },
     answer: "B",
     choices: { "GPT-5.4": "C", "Gemini-3.1-Pro": "B", "Qwen3.5-VL": "C", "Kimi-K2.5": "C" },
@@ -85,6 +86,7 @@ Answer: C`,
     color: "#fed185",
     image: "assets/question_original_objects.jpg",
     question: "What is beneath the shrimps inside the metal bucket?",
+    explanation: 'The shrimps cover the inside of the bucket, so the material beneath them cannot be determined from the visible evidence. Ice is plausible, but it is not clearly visible enough to choose over "not possible to tell."',
     options: { A: "Octopus", B: "More shrimps", C: "Ice", D: "Not possible to tell" },
     answer: "D",
     choices: { "GPT-5.4": "C", "Gemini-3.1-Pro": "C", "Qwen3.5-VL": "C", "Kimi-K2.5": "C" },
@@ -112,6 +114,7 @@ Answer: C`,
     color: "#ffe94e",
     image: "assets/question_original_scenes.jpg",
     question: "What item is clearly visible on the table closest to the viewer?",
+    explanation: "On the closest table in the foreground, the visible white object has raised/open edges consistent with an open takeout box rather than a flat notepad, scattered papers, or a computer.",
     options: { A: "An open takeout box", B: "A notepad", C: "Scattered paper", D: "A computer" },
     answer: "A",
     choices: { "GPT-5.4": "B", "Gemini-3.1-Pro": "A", "Qwen3.5-VL": "B", "Kimi-K2.5": "B" },
@@ -141,6 +144,7 @@ Answer: B`,
     color: "#5a94ea",
     image: "assets/question_original_digital.png",
     question: "What is the symbol next to the recipient's name?",
+    explanation: "Next to the recipient name in the email header is a small downward-pointing triangle, which is the standard symbol for a dropdown arrow.",
     options: { A: "A search bar", B: "A heart", C: "A dropdown arrow", D: "A setting icon" },
     answer: "C",
     choices: { "GPT-5.4": "C", "Gemini-3.1-Pro": "C", "Qwen3.5-VL": "C", "Kimi-K2.5": "B" },
@@ -169,6 +173,7 @@ Answer: C`,
     color: "#73ad5c",
     image: "assets/question_original_academics.jpg",
     question: "What continent outline is clearly visible on the woodland circle in the image?",
+    explanation: "The woodland circle contains the outline of Australia. Its compact island-continent shape is visible inside the circle, unlike the shapes of South America, Europe, or Africa.",
     options: { A: "South America", B: "Europe", C: "Australia", D: "Africa" },
     answer: "C",
     choices: { "GPT-5.4": "C", "Gemini-3.1-Pro": "C", "Qwen3.5-VL": "D", "Kimi-K2.5": "C" },
@@ -198,6 +203,7 @@ Answer: D`,
     color: "#a77dea",
     image: "assets/question_original_dct.jpg",
     question: "Which state and which year does this mortgage document indicate?",
+    explanation: 'The document text indicates "State of Missouri" and includes the date "A. D. 1872," so the correct state-year pair is Missouri, 1872.',
     options: { A: "Missouri, 1873", B: "Missouri, 1872", C: "Mississippi, 1873", D: "Mississippi, 1872" },
     answer: "B",
     choices: { "GPT-5.4": "A", "Gemini-3.1-Pro": "B", "Qwen3.5-VL": "B", "Kimi-K2.5": "B" },
@@ -387,7 +393,7 @@ function optionRow(letter, text, item) {
     const meta = modelMeta[model];
     return `<span class="model-mark model-${meta.key}" title="${meta.label}" aria-label="${meta.label}"><img class="model-logo" src="${meta.logo}" alt=""></span>`;
   }).join("");
-  li.innerHTML = `<span>${letter}</span><p>${text}</p><div class="option-logos">${logos}</div>`;
+  li.innerHTML = `<span>${letter}</span><p>${escapeHtml(text)}</p><div class="option-logos">${logos}</div>`;
   return li;
 }
 
@@ -435,6 +441,22 @@ function renderQuestion(key = questions[0].key) {
   const options = document.getElementById("option-list");
   options.innerHTML = "";
   Object.entries(item.options).forEach(([letter, text]) => options.appendChild(optionRow(letter, text, item)));
+  const answerNote = document.getElementById("answer-note");
+  answerNote.classList.remove("open");
+  answerNote.innerHTML = `
+    <button class="answer-note-toggle" type="button" aria-expanded="false">
+      <span>Explanation</span>
+      <i aria-hidden="true"></i>
+    </button>
+    <p hidden>${escapeHtml(item.explanation)}</p>
+  `;
+  const answerToggle = answerNote.querySelector(".answer-note-toggle");
+  const answerText = answerNote.querySelector("p");
+  answerToggle.addEventListener("click", () => {
+    const isOpen = answerNote.classList.toggle("open");
+    answerToggle.setAttribute("aria-expanded", String(isOpen));
+    answerText.hidden = !isOpen;
+  });
 
   const modelMetaForTrace = modelMeta["Qwen3.5-VL"];
   document.getElementById("reasoning-model").innerHTML = `

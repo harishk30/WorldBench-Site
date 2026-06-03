@@ -962,10 +962,66 @@ tbody tr.top td.best {
 .option-list li.correct p {
   color: var(--ink);
   font-weight: 850;
+}
+
+.option-list li.correct > p:first-line {
   text-decoration: underline;
   text-decoration-color: var(--domain-color);
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
+}
+
+.answer-note {
+  display: grid;
+  gap: 0;
+  padding: 0;
+  border: 1px solid rgba(20, 49, 9, 0.14);
+  border-left: 3px solid var(--domain-color);
+  background: rgba(255, 255, 255, 0.38);
+}
+
+.answer-note-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  font: inherit;
+}
+
+.answer-note-toggle span {
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.answer-note-toggle i {
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform 160ms ease;
+}
+
+.answer-note.open .answer-note-toggle i {
+  transform: rotate(-135deg) translateY(-1px);
+}
+
+.answer-note p {
+  max-width: 64ch;
+  padding: 0 14px 13px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.42;
 }
 
 .option-logos {
